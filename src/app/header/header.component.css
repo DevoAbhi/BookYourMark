@@ -1,0 +1,12 @@
+li {
+  padding: 2rem;
+}
+
+.button {
+  border: var(--khaki) 1px solid;
+  border-radius: 20px;
+  padding:0.6rem 1.3rem !important;
+  color: var(--pale-green) !important;
+  font-weight:600 ;
+}
+

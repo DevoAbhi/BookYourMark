@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root{
+  --khaki: #F0E68C;
+  /* --pale-green: #98FB98; */
+  --pale-green: #32CD32;
+}
+
+html{
+  box-sizing: border-box;
+  margin: 5px 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  line-height: 1.4;
+}
