@@ -28,4 +28,17 @@ export class AuthService {
       }
     })
   }
+
+  login(email: string, password: string){
+    const user: User= {
+      username: null,
+      email: email,
+      password: password
+    }
+
+    this.httpClient.post('http://localhost:3000/login', user)
+    .subscribe(responseData => {
+      console.log(responseData)
+    })
+  }
 }
