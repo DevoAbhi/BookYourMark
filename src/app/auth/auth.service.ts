@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
+import { User } from './user.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
   ){}
 
   signup(username: string, email: string, password: string) {
-    const user = {
+    const user: User = {
       username: username,
       email: email,
       password: password
