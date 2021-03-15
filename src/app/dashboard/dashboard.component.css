@@ -1,0 +1,21 @@
+#dashboard {
+  height: 100vh;
+  background-color: #00022e;
+}
+
+.wrapper{
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sidebar{
+  color: var(--khaki)
+}
+
+.bookmarks{
+  color: var(--khaki);
+  height: 100vh;
+  background-color: aliceblue;
+}
+
