@@ -26,7 +26,6 @@ export class SignupComponent implements OnInit {
 
   onSignup(){
     if(this.form.invalid){
-      console.log("hello")
       return
     }
     console.log(this.form.value)
@@ -48,6 +47,6 @@ export class SignupComponent implements OnInit {
 
     this.form.reset();
 
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
   }
 }
