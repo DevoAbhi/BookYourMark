@@ -1,0 +1,5 @@
+.wrapper{
+  box-shadow: var(--shadow);
+  padding: 3rem;
+  margin-top: 2rem;
+}
