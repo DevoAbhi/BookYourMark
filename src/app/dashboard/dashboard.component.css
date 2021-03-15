@@ -1,21 +1,41 @@
 #dashboard {
   height: 100vh;
   background-color: #00022e;
+  border-radius: 20px;
+
 }
 
 .wrapper{
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 2.5fr 6fr;
 }
 
 .sidebar{
-  color: var(--khaki)
+  color: var(--white);
+  padding: 2rem;
+  
+}
+
+.sidebar .folders{
+  background-color: antiquewhite;
+  padding: 0.4rem;
+  width: 100%;
+}
+
+.sidebar .folders {
+  color: #00022e;
+
+  /* flex-direction: column;
+  align-items: flex-start;
+  justify-items: center; */
 }
 
 .bookmarks{
-  color: var(--khaki);
+  margin-top: 0.6rem;
+  margin-right: 0.6rem;
   height: 100vh;
   background-color: aliceblue;
+  border-radius: 20px;
 }
 

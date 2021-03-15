@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root{
+  /* colors */
   --khaki: #F0E68C;
-  /* --pale-green: #98FB98; */
   --pale-green: #32CD32;
+  --white: #fff;
   --shadow: 0 1px 5px rgba(104, 104, 104, 0.8)
 }
 
