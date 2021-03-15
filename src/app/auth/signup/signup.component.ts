@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
     })
   }
 
-  onSubmit(){
+  onSignup(){
     if(this.form.invalid){
       console.log("hello")
       return
