@@ -6,10 +6,17 @@ import { User } from './user.model';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
+  private token: string;
+
   constructor(
     private httpClient: HttpClient,
     private router: Router
-  ){}
+  ){
+  }
+
+  async getToken() {
+    return await this.token;
+  }
 
   signup(username: string, email: string, password: string) {
     const user: User = {
@@ -36,9 +43,14 @@ export class AuthService {
       password: password
     }
 
-    this.httpClient.post('http://localhost:3000/login', user)
-    .subscribe(responseData => {
-      console.log(responseData)
+    this.httpClient.post<{token: string}>('http://localhost:3000/login', user)
+    .subscribe((responseData) => {
+
+      const auth_token = responseData.token;
+      this.token =  auth_token;
+      console.log(this.token)
     })
+    console.log(this.token)
   }
+
 }
