@@ -69,6 +69,12 @@ export class AuthService {
     })
   }
 
+  logout(){
+    this.token = null;
+    this.isAuthenticated = false;
+    this.isAuthStatusListener.next(false);
+  }
+
   // async getLoginResponseData(email: string, password: string){
   //   let response = await this.login(email, password).toPromise();
   //   if(response){
