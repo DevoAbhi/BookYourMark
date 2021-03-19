@@ -25,10 +25,13 @@ export class LoginComponent implements OnInit {
       return
     }
 
-    this.authService.login(this.form.value.email, this.form.value.password)
+    this.authService.loginReqObj = {}
+    this.authService.loginReqObj.email = this.form.value.email;
+    this.authService.loginReqObj.password = this.form.value.password;
+    this.authService.login()
 
-    this.form.reset();
+    // this.form.reset();
 
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
   }
 }
