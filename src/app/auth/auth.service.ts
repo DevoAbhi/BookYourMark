@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Router } from '@angular/router';
 import { User } from './user.model';
 import { Subject } from 'rxjs';
+import { async } from 'rxjs/internal/scheduler/async';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class AuthService {
-
-  private token: string;
+  private isAuthenticated = false;
+  private token: string = '';
   private isAuthStatusListener= new Subject<boolean>();
+  loginReqObj;
+  loginResObj;
 
   constructor(
     private httpClient: HttpClient
   ){
   }
 
-  getToken() {
-    return this.token
+
+
+  getIsAuthenticated() {
+    console.log(this.isAuthenticated)
+    return this.isAuthenticated;
   }
 
   getAuthStatusListener() {
@@ -41,19 +46,54 @@ export class AuthService {
     })
   }
 
-  login(email: string, password: string){
+    login(){
     const user: User= {
       username: null,
-      email: email,
-      password: password
+      email: this.loginReqObj.email,
+      password: this.loginReqObj.password
     }
 
     this.httpClient.post<{token: string}>('http://localhost:3000/login', user)
-    .subscribe( responseData => {
+    .subscribe(
+      response => {
 
-      const token = responseData.token;
-      this.token = token;
-      this.isAuthStatusListener.next(true);
+        this.loginResObj = response;
+        const token =  response.token;
+        this.token = token;
+      if(token){
+        this.isAuthenticated = true;
+        console.log(this.isAuthenticated)
+        this.isAuthStatusListener.next(true);
+      }
+
     })
   }
+
+  // async getLoginResponseData(email: string, password: string){
+  //   let response = await this.login(email, password).toPromise();
+  //   if(response){
+  //     console.log(response.token)
+  //     this.token = response.token
+  //     console.log("Main hu 1st madharchod !")
+  //     this.isAuthenticated = true
+  //   }
+  //   console.log(typeof this.token)
+  //   return response.token
+  // }
+
+  // async loginProceed(email: string, password: string){
+  //   let token = await this.getLoginResponseData(email, password);
+
+  //   this.token = token;
+  //   console.log(this.token)
+  //   return token;
+  // }
+
+  getToken() {
+    console.log(this.token)
+    console.log(this.isAuthenticated)
+    return this.token
+  }
+
+
 }
