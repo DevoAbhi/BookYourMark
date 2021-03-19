@@ -9,6 +9,7 @@ export class AuthService {
   private isAuthenticated = false;
   private token: string = '';
   private isAuthStatusListener= new Subject<boolean>();
+  private tokenTimer: any;
   loginReqObj;
   loginResObj;
 
@@ -53,14 +54,18 @@ export class AuthService {
       password: this.loginReqObj.password
     }
 
-    this.httpClient.post<{token: string}>('http://localhost:3000/login', user)
+    this.httpClient.post<{token: string, expiresIn: number}>('http://localhost:3000/login', user)
     .subscribe(
       response => {
 
         this.loginResObj = response;
-        const token =  response.token;
+        const token =  this.loginResObj.token;
         this.token = token;
       if(token){
+        const expiresInDuration = this.loginResObj.expiresIn;
+        this.tokenTimer = setTimeout(() => {
+          this.logout();
+        }, expiresInDuration * 1000)
         this.isAuthenticated = true;
         console.log(this.isAuthenticated)
         this.isAuthStatusListener.next(true);
@@ -72,6 +77,7 @@ export class AuthService {
   logout(){
     this.token = null;
     this.isAuthenticated = false;
+    clearTimeout(this.tokenTimer);
     this.isAuthStatusListener.next(false);
   }
 
