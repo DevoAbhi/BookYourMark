@@ -32,6 +32,6 @@ export class LoginComponent implements OnInit {
 
     // this.form.reset();
 
-    // this.router.navigate(['/']);
+    // this.router.navigate ']);
   }
 }

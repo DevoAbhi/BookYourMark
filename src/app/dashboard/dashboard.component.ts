@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +9,19 @@ import { FormGroup } from '@angular/forms';
 export class DashboardComponent implements OnInit {
 
   form: FormGroup
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
+
+    this.form = new FormGroup({
+      'folder_title' : new FormControl(null, [Validators.required])
+    })
   }
 
-  onCreateFolder(){}
+  onCreateFolder(){
+    if(this.form.invalid){
+      return
+    }
+    const folder_title = this.form.value.folder_title;
+  }
 }
