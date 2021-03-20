@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
     console.log(this.authService.getIsAuthenticated())
-    console.log("Hello madharchod bsdk")
     // this.isUserAuthenticated = this.authService.getIsAuthenticated();
     this.isAuthSub = this.authService
       .getAuthStatusListener()
@@ -27,7 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout(){
     this.authService.logout();
-    this.router.navigate(['/'])
   }
 
   ngOnDestroy() {

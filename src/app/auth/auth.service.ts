@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { User } from './user.model';
 import { Subject } from 'rxjs';
 import { async } from 'rxjs/internal/scheduler/async';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
   loginResObj;
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private route: Router
   ){
   }
 
@@ -60,15 +62,20 @@ export class AuthService {
 
         this.loginResObj = response;
         const token =  this.loginResObj.token;
-        this.token = token;
+
       if(token){
         const expiresInDuration = this.loginResObj.expiresIn;
         this.tokenTimer = setTimeout(() => {
           this.logout();
         }, expiresInDuration * 1000)
         this.isAuthenticated = true;
-        console.log(this.isAuthenticated)
         this.isAuthStatusListener.next(true);
+
+        const nowTime = new Date();
+        const expirationDate = new Date(nowTime.getTime() + expiresInDuration * 1000)
+        this.saveAuth(token, expirationDate)
+
+        this.route.navigate(['/']);
       }
 
     })
@@ -79,6 +86,18 @@ export class AuthService {
     this.isAuthenticated = false;
     clearTimeout(this.tokenTimer);
     this.isAuthStatusListener.next(false);
+    this.removeAuth();
+    this.route.navigate(['login'])
+  }
+
+  saveAuth(token: string, expirationDate: Date) {
+    localStorage.setItem('token', token)
+    localStorage.setItem('expiration', expirationDate.toISOString())
+  }
+
+  removeAuth() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
   }
 
   // async getLoginResponseData(email: string, password: string){
