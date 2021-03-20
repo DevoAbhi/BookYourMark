@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class DashboardComponent implements OnInit {
 
   form: FormGroup
-  constructor() {}
+  constructor(private restService : RestService) {}
 
   ngOnInit(): void {
 
@@ -18,10 +19,16 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  onCreateFolder(){
+  async onCreateFolder(){
     if(this.form.invalid){
       return
     }
     const folder_title = this.form.value.folder_title;
+
+    const response = await this.restService.createFolder(folder_title)
+
+    if(response.success){
+      console.log(response.folder_title)
+    }
   }
 }
