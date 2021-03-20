@@ -75,7 +75,7 @@ export class AuthService implements OnInit{
         const expirationDate = new Date(nowTime.getTime() + expiresInDuration * 1000)
         this.saveAuth(token, expirationDate)
 
-        this.route.navigate(['/']);
+        this.route.navigate(['dashboard']);
       }
 
     })

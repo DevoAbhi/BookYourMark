@@ -2,7 +2,12 @@
   <div class="wrapper">
     <div class="sidebar">
       <div class="folders">
-        <p class="title">Abhinab</p>
+        <form [formGroup]= 'form' (submit)="onCreateFolder()">
+          <div class="form-group">
+            <label for="folder">Create Folder</label>
+      <input type="text" class="form-control" id="folder" formControlName="folder" aria-describedby="folder" placeholder="Enter Folder name">
+          </div>
+        </form>
       </div>
     </div>
     <div class="bookmarks">
