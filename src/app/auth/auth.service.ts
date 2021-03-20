@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { User } from './user.model';
 import { Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { async } from 'rxjs/internal/scheduler/async';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: "root" })
-export class AuthService {
+export class AuthService implements OnInit{
   private isAuthenticated = false;
   private token: string = '';
   private isAuthStatusListener= new Subject<boolean>();
@@ -20,7 +20,9 @@ export class AuthService {
   ){
   }
 
+  ngOnInit() {
 
+  }
 
   getIsAuthenticated() {
     console.log(this.isAuthenticated)
@@ -62,13 +64,14 @@ export class AuthService {
 
         this.loginResObj = response;
         const token =  this.loginResObj.token;
+        this.isAuthenticated = true;
 
       if(token){
         const expiresInDuration = this.loginResObj.expiresIn;
         this.tokenTimer = setTimeout(() => {
           this.logout();
         }, expiresInDuration * 1000)
-        this.isAuthenticated = true;
+
         this.isAuthStatusListener.next(true);
 
         const nowTime = new Date();
@@ -79,6 +82,8 @@ export class AuthService {
       }
 
     })
+
+    console.log(this.isAuthenticated)
   }
 
   logout(){
@@ -90,6 +95,8 @@ export class AuthService {
     this.route.navigate(['login'])
   }
 
+
+
   saveAuth(token: string, expirationDate: Date) {
     localStorage.setItem('token', token)
     localStorage.setItem('expiration', expirationDate.toISOString())
@@ -99,6 +106,19 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
   }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    const nowTime = new Date();
+    const isInFuture = authInformation.expirationDate > nowTime;
+
+    if(isInFuture) {
+      this.token = authInformation.token;
+      this.isAuthenticated = true;
+      this.isAuthStatusListener.next(true);
+    }
+  }
+
 
   getAuthData() {
 
