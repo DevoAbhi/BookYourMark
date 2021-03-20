@@ -68,10 +68,8 @@ export class AuthService implements OnInit{
 
       if(token){
         const expiresInDuration = this.loginResObj.expiresIn;
-        this.tokenTimer = setTimeout(() => {
-          this.logout();
-        }, expiresInDuration * 1000)
 
+        this.setAuthTimer(expiresInDuration)
         this.isAuthStatusListener.next(true);
 
         const nowTime = new Date();
@@ -95,7 +93,12 @@ export class AuthService implements OnInit{
     this.route.navigate(['login'])
   }
 
-
+  setAuthTimer(duration : number) {
+    console.log("You will be logged out in --> " + duration)
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000)
+  }
 
   saveAuth(token: string, expirationDate: Date) {
     localStorage.setItem('token', token)
@@ -110,12 +113,13 @@ export class AuthService implements OnInit{
   autoAuthUser() {
     const authInformation = this.getAuthData();
     const nowTime = new Date();
-    const isInFuture = authInformation.expirationDate > nowTime;
+    const expiresIn = authInformation.expirationDate.getTime() - nowTime.getTime();
 
-    if(isInFuture) {
+    if(expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.isAuthStatusListener.next(true);
+      this.setAuthTimer(expiresIn/1000)
     }
   }
 
