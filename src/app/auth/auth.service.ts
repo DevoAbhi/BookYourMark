@@ -24,10 +24,8 @@ export class AuthService implements OnInit{
 
   }
 
-  getIsAuthenticated() {
-    console.log(this.isAuthenticated)
-    return this.isAuthenticated;
-  }
+
+
 
   getAuthStatusListener() {
     return this.isAuthStatusListener.asObservable();
@@ -64,6 +62,7 @@ export class AuthService implements OnInit{
 
         this.loginResObj = response;
         const token =  this.loginResObj.token;
+        this.token = token
         this.isAuthenticated = true;
 
       if(token){
@@ -80,8 +79,15 @@ export class AuthService implements OnInit{
       }
 
     })
+  }
 
-    console.log(this.isAuthenticated)
+  isUserLoggedIn() {
+    if (localStorage.getItem('token') !== null) {
+      this.token = localStorage.getItem('token');
+      return true;
+    } else {
+      return false;
+    }
   }
 
   logout(){
@@ -112,6 +118,12 @@ export class AuthService implements OnInit{
 
   autoAuthUser() {
     const authInformation = this.getAuthData();
+
+    console.log(authInformation)
+
+    if(!authInformation){
+      return
+    }
     const nowTime = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - nowTime.getTime();
 
@@ -122,6 +134,7 @@ export class AuthService implements OnInit{
       this.setAuthTimer(expiresIn/1000)
     }
   }
+
 
 
   getAuthData() {
@@ -138,6 +151,11 @@ export class AuthService implements OnInit{
       expirationDate : new Date(expirationDate)
     }
 
+  }
+
+  getIsAuth() {
+    console.log(this.isAuthenticated)
+    return this.isAuthenticated;
   }
 
 
@@ -168,11 +186,7 @@ export class AuthService implements OnInit{
   //   return token;
   // }
 
-  getToken() {
-    console.log(this.token)
-    console.log(this.isAuthenticated)
-    return this.token
-  }
+
 
 
 }
