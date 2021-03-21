@@ -9,6 +9,7 @@ export class RestService {
 
   xAuthToken = null;
   createFolderResponse = null;
+  viewFolderResponse = null;
   constructor(private http: HttpClient) { }
 
   async createFolder(folder_title: string){
@@ -27,5 +28,20 @@ export class RestService {
       })
 
       return this.createFolderResponse;
+  }
+
+  async viewFolders(){
+    this.xAuthToken = localStorage.getItem('token');
+
+    await this.http.get('http://localhost:3000/view-folders', {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+      .then(response => {
+        this.viewFolderResponse = response;
+      })
+
+      return this.viewFolderResponse;
   }
 }
