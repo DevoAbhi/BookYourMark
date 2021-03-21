@@ -63,7 +63,14 @@ export class DashboardComponent implements OnInit {
       }
     }
     else {
-      
+      const updateFolderResponse = await this.restService.renameFolder(this.folderId, folder_title);
+
+      if(updateFolderResponse.success){
+        console.log(updateFolderResponse.message)
+      }
+      else{
+        console.log(updateFolderResponse.message)
+      }
     }
 
   }
