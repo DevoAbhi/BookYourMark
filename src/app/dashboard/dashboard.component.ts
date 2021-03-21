@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     if(FoldersDataResponse.success){
       console.log(FoldersDataResponse.username);
       console.log(FoldersDataResponse.folders[0].folder_title)
+      this.folders = FoldersDataResponse.folders
     }
   }
 }

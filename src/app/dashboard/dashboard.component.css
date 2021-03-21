@@ -1,20 +1,20 @@
 #dashboard {
   height: 100vh;
-  background-color: #00022e;
+  /* background-color: #00022e; */
   border-radius: 20px;
 
 }
 
-.wrapper{
+/* .wrapper{
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 2.5fr 6fr;
-}
+} */
 
 .sidebar{
   color: var(--white);
   padding: 2rem;
-  
+
 }
 
 .sidebar .folders{
