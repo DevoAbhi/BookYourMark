@@ -10,6 +10,8 @@ import { RestService } from '../rest.service';
 export class DashboardComponent implements OnInit {
 
   form: FormGroup
+  folder_title : string;
+  folders: [];
   constructor(private restService : RestService) {}
 
   ngOnInit(): void {
@@ -17,6 +19,8 @@ export class DashboardComponent implements OnInit {
     this.form = new FormGroup({
       'folder_title' : new FormControl(null, [Validators.required])
     })
+
+    this.getFolders()
   }
 
   async onCreateFolder(){
@@ -29,6 +33,16 @@ export class DashboardComponent implements OnInit {
 
     if(response.success){
       console.log(response.folder_title)
+      this.folder_title = response.folder_title
+    }
+  }
+
+  async getFolders(){
+    const FoldersDataResponse = await this.restService.viewFolders();
+
+    if(FoldersDataResponse.success){
+      console.log(FoldersDataResponse.username);
+      console.log(FoldersDataResponse.folders[0].folder_title)
     }
   }
 }

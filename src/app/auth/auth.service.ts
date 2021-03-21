@@ -103,7 +103,7 @@ export class AuthService implements OnInit{
     console.log("You will be logged out in --> " + duration)
     this.tokenTimer = setTimeout(() => {
       this.logout();
-    }, duration * 1000)
+    }, duration  * 1000)
   }
 
   saveAuth(token: string, expirationDate: Date) {
