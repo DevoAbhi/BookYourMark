@@ -10,6 +10,7 @@ export class RestService {
   xAuthToken = null;
   createFolderResponse = null;
   viewFolderResponse = null;
+  RenameFolderResponse = null;
   constructor(private http: HttpClient) { }
 
   async createFolder(folder_title: string){
@@ -43,5 +44,26 @@ export class RestService {
       })
 
       return this.viewFolderResponse;
+  }
+
+  async renameFolder(folderId : string, folder_title: string) {
+    this.xAuthToken = localStorage.getItem('token');
+
+    const updatedFolder = {
+      folder_title: folder_title,
+      folderId: folderId
+    }
+
+    await this.http.post('http://localhost:3000/rename-folder', updatedFolder, {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+      .then(response => {
+        this.RenameFolderResponse = response;
+      })
+
+      return this.RenameFolderResponse;
+
   }
 }
