@@ -21,7 +21,12 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'edit-folder-name/:folderId',
+    component: DashboardComponent
   }
+
 ]
 
 @NgModule({

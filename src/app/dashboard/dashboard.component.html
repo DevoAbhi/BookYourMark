@@ -2,19 +2,21 @@
   <div class="wrapper">
     <div class="sidebar">
       <div class="folders">
-        <form [formGroup]= 'form' (submit)="onCreateFolder()">
+        <form [formGroup]= 'form' (submit)="onSubmitFolder()">
           <div class="form-group">
             <label for="folder">Create Folder</label>
       <input type="text" class="form-control" id="folder" formControlName="folder_title" aria-describedby="folder" placeholder="Enter Folder name">
           </div>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
         </form>
       </div>
     </div>
 
     <ul *ngFor= "let folder of folders">
       <li >
-          {{folder.folder_title}}
+          <p>{{folder.folder_title}}</p>
+          <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]" >Edit</a>
 
       </li>
     </ul>
