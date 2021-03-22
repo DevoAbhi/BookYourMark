@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   form: FormGroup
   folder_title : string;
-  folders: [];
+  folders = [];
   isEditMode : boolean;
   private folderId: string;
   constructor(private restService : RestService, private route: ActivatedRoute, private router: Router) {}
@@ -59,7 +59,9 @@ export class DashboardComponent implements OnInit {
 
       if(response.success){
         console.log(response.folder_title)
-        this.folder_title = response.folder_title
+        this.folder_title = response.folder_title;
+        this.folders.push({_id : response._id , folder_title: folder_title})
+        console.log(this.folders)
       }
     }
     else {
@@ -67,7 +69,7 @@ export class DashboardComponent implements OnInit {
 
       if(updateFolderResponse.success){
         console.log(updateFolderResponse.message)
-        this.router.navigate(['dashboard'])
+        this.folders.push({_id : this.folderId , folder_title: folder_title})
       }
       else{
         console.log(updateFolderResponse.message)
@@ -81,8 +83,9 @@ export class DashboardComponent implements OnInit {
 
     if(FoldersDataResponse.success){
       console.log(FoldersDataResponse.username);
-      console.log(FoldersDataResponse.folders[0]._id)
+      console.log(FoldersDataResponse.folders)
       this.folders = FoldersDataResponse.folders
+
     }
   }
 
@@ -91,6 +94,11 @@ export class DashboardComponent implements OnInit {
 
     if(DeleteFolderDataResponse.success) {
       console.log(DeleteFolderDataResponse.message)
+
+      let idx = this.folders.findIndex(folder => folder._id === folderId)
+
+      this.folders.splice(idx, 1)
+      console.log(this.folders)
     }
 
   }

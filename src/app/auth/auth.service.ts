@@ -158,35 +158,4 @@ export class AuthService implements OnInit{
     return this.isAuthenticated;
   }
 
-
-
-
-
-
-
-
-
-  // async getLoginResponseData(email: string, password: string){
-  //   let response = await this.login(email, password).toPromise();
-  //   if(response){
-  //     console.log(response.token)
-  //     this.token = response.token
-  //     console.log("Main hu 1st madharchod !")
-  //     this.isAuthenticated = true
-  //   }
-  //   console.log(typeof this.token)
-  //   return response.token
-  // }
-
-  // async loginProceed(email: string, password: string){
-  //   let token = await this.getLoginResponseData(email, password);
-
-  //   this.token = token;
-  //   console.log(this.token)
-  //   return token;
-  // }
-
-
-
-
 }
