@@ -11,6 +11,7 @@ export class RestService {
   createFolderResponse = null;
   viewFolderResponse = null;
   RenameFolderResponse = null;
+  DeleteFolderResponse = null;
   constructor(private http: HttpClient) { }
 
   async createFolder(folder_title: string){
@@ -65,5 +66,20 @@ export class RestService {
 
       return this.RenameFolderResponse;
 
+  }
+
+  async deleteFolder(folder_id){
+    this.xAuthToken = localStorage.getItem('token');
+
+    await this.http.delete(`http://localhost:3000/delete-folder?folder_id=${folder_id}`, {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+      .then(response => {
+        this.DeleteFolderResponse = response;
+      })
+
+      return this.DeleteFolderResponse
   }
 }
