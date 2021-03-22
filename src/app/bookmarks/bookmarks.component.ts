@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -10,8 +11,9 @@ import { RestService } from '../rest.service';
 export class BookmarksComponent implements OnInit {
 
   form : FormGroup
+  folder_id : string;
 
-  constructor(private restService : RestService) { }
+  constructor(private restService : RestService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -20,9 +22,13 @@ export class BookmarksComponent implements OnInit {
       'href': new FormControl(null, {validators: [Validators.required]}),
       'description': new FormControl(null, {validators: [Validators.required]})
     })
+
+    this.route.paramMap.subscribe((paramMap : ParamMap) => {
+      this.folder_id = paramMap.get('folderId')
+    })
   }
 
-  onSubmitBookmark() {
+  async onSubmitBookmark() {
     if(this.form.invalid){
       return;
     }
@@ -31,6 +37,13 @@ export class BookmarksComponent implements OnInit {
     this.restService.createBookmarkReqObj.bookmark_title = this.form.value.bookmark_title;
     this.restService.createBookmarkReqObj.href = this.form.value.href;
     this.restService.createBookmarkReqObj.description = this.form.value.description;
+    this.restService.createBookmarkReqObj.folder_id = this.folder_id
+
+    const response = await this.restService.createBookmark();
+
+    if(response.success) {
+      console.log(response.message);
+    }
 
     this.form.reset();
 

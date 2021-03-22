@@ -13,6 +13,7 @@ export class RestService {
   RenameFolderResponse = null;
   DeleteFolderResponse = null;
   createBookmarkReqObj;
+  createBookmarkResponse;
 
   constructor(private http: HttpClient) { }
 
@@ -93,5 +94,17 @@ export class RestService {
 
   async createBookmark() {
 
+    this.xAuthToken = localStorage.getItem('token')
+
+    await this.http.post('http://localhost:3000/create-bookmark', this.createBookmarkReqObj, {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+      .then(response => {
+        this.createBookmarkResponse = response
+      })
+
+    return this.createBookmarkResponse;
   }
 }
