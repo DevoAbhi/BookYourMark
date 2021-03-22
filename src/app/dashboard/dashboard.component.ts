@@ -2,6 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   folders = [];
   isEditMode : boolean;
   private folderId: string;
+  private folderData = new Subject<Object>();
   constructor(private restService : RestService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
@@ -100,6 +102,9 @@ export class DashboardComponent implements OnInit {
       this.folders.splice(idx, 1)
       console.log(this.folders)
     }
+  }
 
+  async onOpen(folderId : string) {
+    
   }
 }
