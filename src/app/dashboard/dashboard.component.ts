@@ -1,7 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   folders: [];
   isEditMode : boolean;
   private folderId: string;
-  constructor(private restService : RestService, private route: ActivatedRoute) {}
+  constructor(private restService : RestService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
 
@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
 
       if(updateFolderResponse.success){
         console.log(updateFolderResponse.message)
+        this.router.navigate(['dashboard'])
       }
       else{
         console.log(updateFolderResponse.message)
@@ -83,5 +84,14 @@ export class DashboardComponent implements OnInit {
       console.log(FoldersDataResponse.folders[0]._id)
       this.folders = FoldersDataResponse.folders
     }
+  }
+
+  async onDelete(folderId : string) {
+    const DeleteFolderDataResponse = await this.restService.deleteFolder(folderId);
+
+    if(DeleteFolderDataResponse.success) {
+      console.log(DeleteFolderDataResponse.message)
+    }
+
   }
 }

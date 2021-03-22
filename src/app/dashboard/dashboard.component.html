@@ -16,7 +16,12 @@
     <ul *ngFor= "let folder of folders">
       <li >
           <p>{{folder.folder_title}}</p>
-          <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]" >Edit</a>
+          <div>
+            <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]" >Edit</a>
+            <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button>
+          </div>
+
+
 
       </li>
     </ul>
