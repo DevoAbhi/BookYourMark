@@ -1,2 +1,16 @@
-<p>bookmarks works!</p>
-          
+<form [formGroup]= 'form' (submit)="onSubmitBookmark()">
+  <div class="form-group">
+    <p style="text-align: center;">Add Bookmark</p>
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" formControlName="bookmark_title" aria-describedby="bookmark_title" placeholder="Enter Bookmark's name">
+
+    <label for="href">Location(URL)</label>
+    <input type="text" class="form-control" id="href" formControlName="href" aria-describedby="href" placeholder="Enter URL">
+
+    <label for="description">Description</label>
+    <input type="text" class="form-control" id="description" formControlName="description" aria-describedby="description" placeholder="Enter Description">
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>

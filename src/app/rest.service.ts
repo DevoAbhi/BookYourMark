@@ -12,8 +12,12 @@ export class RestService {
   viewFolderResponse = null;
   RenameFolderResponse = null;
   DeleteFolderResponse = null;
+  createBookmarkReqObj;
+
   constructor(private http: HttpClient) { }
 
+
+  // ************************************  Folder APIs ************************************************
   async createFolder(folder_title: string){
 
     this.xAuthToken = localStorage.getItem('token');
@@ -81,5 +85,13 @@ export class RestService {
       })
 
       return this.DeleteFolderResponse
+  }
+
+
+
+  // *********************************** Bookmark APIs ********************************************
+
+  async createBookmark() {
+
   }
 }
