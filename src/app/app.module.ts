@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
-import { FoldersComponent } from './folders/folders.component';
+import { BookmarksComponent } from './bookmarks/bookmarks.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { FoldersComponent } from './folders/folders.component';
     HomeComponent,
     DashboardComponent,
     LoginComponent,
-    FoldersComponent
+    BookmarksComponent,
   ],
   imports: [
     BrowserModule,
