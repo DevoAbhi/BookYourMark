@@ -12,6 +12,7 @@ export class BookmarksComponent implements OnInit {
 
   form : FormGroup
   folder_id : string;
+  bookmarks = []
 
   constructor(private restService : RestService, private route: ActivatedRoute) { }
 
@@ -26,6 +27,8 @@ export class BookmarksComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap : ParamMap) => {
       this.folder_id = paramMap.get('folderId')
     })
+
+    this.getBookmarks();
   }
 
   async onSubmitBookmark() {
@@ -43,9 +46,28 @@ export class BookmarksComponent implements OnInit {
 
     if(response.success) {
       console.log(response.message);
+
+      this.bookmarks.push(response.bookmark)
+      console.log(this.bookmarks)
     }
+
+
+
+
 
     this.form.reset();
 
+  }
+
+  async getBookmarks() {
+
+    const response = await this.restService.viewBookmarks(this.folder_id);
+
+    if(response.success) {
+      console.log(response.message)
+      console.log(response.bookmarks)
+    }
+    this.bookmarks = response.bookmarks;
+    console.log(this.bookmarks)
   }
 }

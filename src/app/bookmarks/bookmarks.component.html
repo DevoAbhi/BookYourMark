@@ -14,3 +14,16 @@
 
   <button type="submit" class="btn btn-primary">Create</button>
 </form>
+
+<ul *ngFor= "let bookmark of bookmarks">
+  <li >
+      <a [href]="bookmark.href" target="_blank">{{bookmark.bookmark_title}}</a>
+      <div>
+        <a class="btn btn-primary " [routerLink]="['/edit-folder-name', bookmark._id]" >Edit</a>
+        <!-- <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button> -->
+      </div>
+
+
+
+  </li>
+</ul>

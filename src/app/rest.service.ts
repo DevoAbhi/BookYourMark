@@ -14,6 +14,7 @@ export class RestService {
   DeleteFolderResponse = null;
   createBookmarkReqObj;
   createBookmarkResponse;
+  viewBookmarkResponse;
 
   constructor(private http: HttpClient) { }
 
@@ -106,5 +107,21 @@ export class RestService {
       })
 
     return this.createBookmarkResponse;
+  }
+
+  async viewBookmarks(folder_id: string) {
+
+    this.xAuthToken = localStorage.getItem('token');
+
+    await this.http.get(`http://localhost:3000/view-bookmarks?folder_id=${folder_id}`, {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+    .then(response => {
+      this.viewBookmarkResponse = response
+    })
+
+    return this.viewBookmarkResponse;
   }
 }
