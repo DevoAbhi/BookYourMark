@@ -24,7 +24,7 @@
       <a [href]="bookmark.href" target="_blank">{{bookmark.bookmark_title}}</a>
       <div>
         <a class="btn btn-primary " [routerLink]="['./edit-bookmark', bookmark._id]" >Edit</a>
-        <!-- <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button> -->
+        <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button>
       </div>
 
 

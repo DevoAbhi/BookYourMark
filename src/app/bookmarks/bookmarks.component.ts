@@ -131,4 +131,15 @@ export class BookmarksComponent implements OnInit {
   onCloseForm() {
     this.formDisplay = 'hide-form'
   }
+
+  async onDelete(bookmark_id : string) {
+
+    const response = await this.restService.deleteBookmark(bookmark_id);
+
+    if(response.success) {
+      console.log(response.message)
+      const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === bookmark_id.toString());
+      this.bookmarks.splice(index,1);
+    }
+  }
 }

@@ -15,7 +15,9 @@ export class RestService {
   createBookmarkReqObj;
   createBookmarkResponse;
   viewBookmarkResponse;
-  updatedBookmarkResponse
+  updatedBookmarkResponse;
+  deleteBookmarkResponse;
+
 
   constructor(private http: HttpClient) { }
 
@@ -128,7 +130,6 @@ export class RestService {
 
   async updateBookmark() {
     this.xAuthToken = localStorage.getItem('token');
-    console.log(this.createBookmarkReqObj)
 
     await this.http.put('http://localhost:3000/update-bookmark', this.createBookmarkReqObj, {
       headers: new HttpHeaders({
@@ -140,5 +141,21 @@ export class RestService {
       })
 
       return this.updatedBookmarkResponse;
+  }
+
+  async deleteBookmark(bookmark_id: string) {
+
+    this.xAuthToken = localStorage.getItem('token');
+
+    await this.http.delete(`http://localhost:3000/delete-bookmark?bookmark_id=${bookmark_id}`, {
+      headers: new HttpHeaders({
+        'X-AUTH-TOKEN' : this.xAuthToken
+      })
+    }).toPromise()
+      .then(response => {
+        this.deleteBookmarkResponse = response;
+      })
+
+      return this.deleteBookmarkResponse;
   }
 }
