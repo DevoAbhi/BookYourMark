@@ -2,4 +2,36 @@ form
 {
   background-color: antiquewhite;
   padding: 2rem;
+
 }
+
+@-webkit-keyframes slide /* Safari and Chrome */
+{
+/* from {height: 0;}
+to {height: 300px;} */
+}
+
+@-prefix-keyframes slide {
+  from {height: 0;}
+  to {height: 300px;}
+}
+
+@keyframes slide
+{
+/* from {height: 0;}
+to {height: 300px;} */
+}
+
+.display-form {
+  display: block;
+  position: relative;
+  /* animation-name: example;
+  animation-duration: 4s;
+  animation-timing-function: ease-in; */
+  -webkit-animation: slide 1s ease forwards;
+}
+
+.hide-form {
+  display: none;
+}
+

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,11 @@ export class DashboardComponent implements OnInit {
   isEditMode : boolean;
   private folderId: string;
   private folderData = new Subject<Object>();
-  constructor(private restService : RestService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private restService : RestService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) {}
 
   async ngOnInit() {
 
@@ -88,6 +93,8 @@ export class DashboardComponent implements OnInit {
         console.log(updateFolderResponse.message)
       }
 
+      this.location.go('dashboard')
+      this.isEditMode = false
       this.form.reset();
     }
 

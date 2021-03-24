@@ -1,4 +1,4 @@
-<form [formGroup]= 'form' (submit)="onSubmitBookmark()">
+<form [formGroup]= 'form' (submit)="onSubmitBookmark()" [ngClass]='[formDisplay]'>
   <div class="form-group">
     <p style="text-align: center;">Add Bookmark</p>
     <label for="title">Title</label>
@@ -13,7 +13,10 @@
   </div>
 
   <button type="submit" class="btn btn-primary">Create</button>
+  <button type="button" class="btn btn-primary" (click)= "onCloseForm()">Close</button>
 </form>
+
+<button class="btn btn-primary"  (click)= "onOpenForm()">Create bookmark</button>
 
 <ul *ngFor= "let bookmark of bookmarks">
   <li >

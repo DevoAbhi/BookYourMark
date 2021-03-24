@@ -13,6 +13,7 @@ export class BookmarksComponent implements OnInit {
   form : FormGroup
   folder_id : string;
   bookmarks = []
+  formDisplay : string = 'hide-form'
 
   constructor(private restService : RestService, private route: ActivatedRoute) { }
 
@@ -69,5 +70,13 @@ export class BookmarksComponent implements OnInit {
     }
     this.bookmarks = response.bookmarks;
     console.log(this.bookmarks)
+  }
+
+  onOpenForm() {
+    this.formDisplay = 'display-form'
+  }
+
+  onCloseForm() {
+    this.formDisplay = 'hide-form'
   }
 }
