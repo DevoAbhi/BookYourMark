@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
         this.isEditMode = true;
         this.folderId = paramMap.get('folderId')
         // const response = await this.restService.viewFolders();
-        console.log(this.folders)
         const editFolder = this.folders.find(folder => {
           return folder._id.toString() === this.folderId.toString()
         })

@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'folder/:folderId',
     component: BookmarksComponent
-  }
+  },
+  {
+    path: 'folder/:folderId/edit-bookmark/:bookmarkId',
+    component: BookmarksComponent
+  },
 
 ]
 

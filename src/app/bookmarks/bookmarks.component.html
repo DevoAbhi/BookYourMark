@@ -12,7 +12,8 @@
 
   </div>
 
-  <button type="submit" class="btn btn-primary">Create</button>
+  <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
+  <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
   <button type="button" class="btn btn-primary" (click)= "onCloseForm()">Close</button>
 </form>
 
@@ -22,7 +23,7 @@
   <li >
       <a [href]="bookmark.href" target="_blank">{{bookmark.bookmark_title}}</a>
       <div>
-        <a class="btn btn-primary " [routerLink]="['/edit-folder-name', bookmark._id]" >Edit</a>
+        <a class="btn btn-primary " [routerLink]="['./edit-bookmark', bookmark._id]" >Edit</a>
         <!-- <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button> -->
       </div>
 

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -12,12 +13,19 @@ export class BookmarksComponent implements OnInit {
 
   form : FormGroup
   folder_id : string;
+  bookmark_id: string;
   bookmarks = []
   formDisplay : string = 'hide-form'
+  isEditMode: boolean;
 
-  constructor(private restService : RestService, private route: ActivatedRoute) { }
+  constructor(
+    private restService : RestService,
+    private route: ActivatedRoute,
+    private location: Location) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+
 
     this.form = new FormGroup({
       'bookmark_title': new FormControl(null, {validators: [Validators.required]}),
@@ -25,11 +33,32 @@ export class BookmarksComponent implements OnInit {
       'description': new FormControl(null, {validators: [Validators.required]})
     })
 
-    this.route.paramMap.subscribe((paramMap : ParamMap) => {
+    this.route.paramMap.subscribe(async (paramMap : ParamMap) => {
       this.folder_id = paramMap.get('folderId')
+      await this.getBookmarks();
+      if(paramMap.has('bookmarkId')) {
+        this.isEditMode = true;
+        this.bookmark_id = paramMap.get('bookmarkId');
+
+        const editBookmark = this.bookmarks.find(bookmark => {
+          return bookmark._id.toString() === this.bookmark_id.toString()
+        })
+
+        this.form.setValue({
+          bookmark_title: editBookmark.bookmark_title,
+          href: editBookmark.href,
+          description : editBookmark.description
+        })
+
+        this.onOpenForm()
+      }
+      else{
+        this.isEditMode = false;
+        this.bookmark_id = null;
+      }
     })
 
-    this.getBookmarks();
+
   }
 
   async onSubmitBookmark() {
@@ -37,26 +66,49 @@ export class BookmarksComponent implements OnInit {
       return;
     }
 
-    this.restService.createBookmarkReqObj = {}
-    this.restService.createBookmarkReqObj.bookmark_title = this.form.value.bookmark_title;
-    this.restService.createBookmarkReqObj.href = this.form.value.href;
-    this.restService.createBookmarkReqObj.description = this.form.value.description;
-    this.restService.createBookmarkReqObj.folder_id = this.folder_id
+    if(!this.isEditMode){
+      this.restService.createBookmarkReqObj = {}
+      this.restService.createBookmarkReqObj.bookmark_title = this.form.value.bookmark_title;
+      this.restService.createBookmarkReqObj.href = this.form.value.href;
+      this.restService.createBookmarkReqObj.description = this.form.value.description;
+      this.restService.createBookmarkReqObj.folder_id = this.folder_id
 
-    const response = await this.restService.createBookmark();
+      const response = await this.restService.createBookmark();
 
-    if(response.success) {
-      console.log(response.message);
+      if(response.success) {
+        console.log(response.message);
 
-      this.bookmarks.push(response.bookmark)
-      console.log(this.bookmarks)
+        this.bookmarks.push(response.bookmark)
+      }
+
+      this.form.reset();
+    }
+    else{
+      this.restService.createBookmarkReqObj = {}
+      this.restService.createBookmarkReqObj.bookmark_title = this.form.value.bookmark_title;
+      this.restService.createBookmarkReqObj.href = this.form.value.href;
+      this.restService.createBookmarkReqObj.description = this.form.value.description;
+      this.restService.createBookmarkReqObj.bookmark_id = this.bookmark_id
+
+      const response = await this.restService.updateBookmark();
+
+      if(response.success){
+        console.log(response.message);
+        const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === this.bookmark_id)
+        this.bookmarks[index] = this.restService.createBookmarkReqObj
+      }
+      else {
+        console.log(response.message)
+      }
+
+      this.form.reset();
+      this.isEditMode = false;
+      this.location.back();
+
+
     }
 
 
-
-
-
-    this.form.reset();
 
   }
 
