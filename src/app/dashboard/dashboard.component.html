@@ -1,6 +1,6 @@
 <section id="dashboard">
 
-    <div class="sidebar" [ngClass]="formDisplay">
+    <div class="form-card" [ngClass]="formDisplay" >
       <div class="folders">
         <form [formGroup]= 'form' (submit)="onSubmitFolder()">
           <div class="form-group">
@@ -33,16 +33,17 @@
     </div>
 
     <div class="wrapper">
-      <div class="folder 1" *ngFor= "let folder of folders">
+      <div class="folder " *ngFor= "let folder of folders" [routerLink]="['/folder', folder._id]" >
         <div class="folder_title title-black">
           <p>{{folder.folder_title}}</p>
-          <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a>
+          <!-- <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a> -->
+          <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button>
         </div>
       </div>
     </div>
 
-
+<!--
     <footer>
       <img src="assets/images/svg.png" alt="">
-    </footer>
+    </footer> -->
 </section>
