@@ -1,6 +1,6 @@
 <section id="dashboard">
-  <div class="wrapper">
-    <div class="sidebar">
+
+    <div class="sidebar" [ngClass]="formDisplay">
       <div class="folders">
         <form [formGroup]= 'form' (submit)="onSubmitFolder()">
           <div class="form-group">
@@ -9,11 +9,12 @@
           </div>
           <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
           <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
+          <button class="btn btn-primary" (click)="onCloseForm()">Close</button>
         </form>
       </div>
     </div>
 
-    <ul *ngFor= "let folder of folders">
+    <!-- <ul *ngFor= "let folder of folders">
       <li >
           <p>{{folder.folder_title}}</p>
           <div>
@@ -25,10 +26,23 @@
 
 
       </li>
-    </ul>
-    <!-- <div class="bookmarks">
+    </ul> -->
 
-    </div> -->
-  </div>
+    <div class="jumbotron">
+      <button class="btn btn-primary" (click)="onOpenForm()">Create Folder</button>
+    </div>
 
+    <div class="wrapper">
+      <div class="folder 1" *ngFor= "let folder of folders">
+        <div class="folder_title title-black">
+          <p>{{folder.folder_title}}</p>
+          <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a>
+        </div>
+      </div>
+    </div>
+
+
+    <footer>
+      <img src="assets/images/svg.png" alt="">
+    </footer>
 </section>

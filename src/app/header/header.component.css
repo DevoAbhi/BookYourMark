@@ -10,3 +10,11 @@ li {
   font-weight:600 ;
 }
 
+.bg-light {
+  background-color: var(--white) !important;
+}
+
+
+.navbar-expand-lg{
+  padding: 0rem 1rem !important;
+}

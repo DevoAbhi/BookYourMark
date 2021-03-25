@@ -1,9 +1,7 @@
 import { Location } from '@angular/common';
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -18,7 +16,7 @@ export class DashboardComponent implements OnInit {
   folders = [];
   isEditMode : boolean;
   private folderId: string;
-  private folderData = new Subject<Object>();
+  formDisplay : string = 'hide-form'
   constructor(
     private restService : RestService,
     private route: ActivatedRoute,
@@ -123,7 +121,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  async onOpen(folderId : string) {
+  async onOpenForm() {
+    this.formDisplay = 'display-form'
+  }
 
+  onCloseForm() {
+    this.formDisplay = 'hide-form'
   }
 }
