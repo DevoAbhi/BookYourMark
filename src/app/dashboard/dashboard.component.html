@@ -7,8 +7,8 @@
             <label for="folder">Create Folder</label>
       <input type="text" class="form-control" id="folder" formControlName="folder_title" aria-describedby="folder" placeholder="Enter Folder name">
           </div>
-          <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
-          <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
+          <button type="submit" class="btn" *ngIf="isEditMode">Update</button>
+          <button type="submit" class="btn" *ngIf="!isEditMode">Create</button>
           <button class="btn btn-primary" (click)="onCloseForm()">Close</button>
         </form>
       </div>
@@ -33,11 +33,14 @@
     </div>
 
     <div class="wrapper">
-      <div class="folder " *ngFor= "let folder of folders" [routerLink]="['/folder', folder._id]" >
-        <div class="folder_title title-black">
-          <p>{{folder.folder_title}}</p>
-          <!-- <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a> -->
-          <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button>
+      <div class="folder " *ngFor= "let folder of folders" >
+        <div class=" title-black">
+          <p class="folder_title">{{folder.folder_title}}</p>
+          <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a>
+          <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]">Edit</a>
+          <img src="https://img.icons8.com/ios/35/000000/edit--v1.png" [routerLink]="['/edit-folder-name', folder._id]"/>
+          <!-- <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button> -->
+          <img (click)="onDelete(folder._id)" src="https://img.icons8.com/ios/35/000000/delete-forever--v1.png"/>
         </div>
       </div>
     </div>

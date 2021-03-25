@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,8 @@ export class DashboardComponent implements OnInit {
         this.form.setValue({
           folder_title : editFolder.folder_title
         })
+
+        this.onOpenForm();
       }
       else{
         this.isEditMode = false;
@@ -62,37 +65,42 @@ export class DashboardComponent implements OnInit {
     }
     const folder_title = this.form.value.folder_title;
 
+
     if(!this.isEditMode){
+
+
       const response = await this.restService.createFolder(folder_title)
 
       if(response.success){
-        console.log(response.folder_title)
         this.folder_title = response.folder_title;
         this.folders.push({_id : response._id , folder_title: folder_title})
-        console.log(this.folders)
+        Swal.fire(`${response.message}`)
+
       }
 
       this.form.reset();
+
     }
     else {
       const updateFolderResponse = await this.restService.renameFolder(this.folderId, folder_title);
 
       if(updateFolderResponse.success){
-        console.log(updateFolderResponse.message)
         const index = this.folders.findIndex(bookmark => bookmark._id.toString() === this.folderId)
         this.folders[index] = {
           _id : this.folderId,
           folder_title: folder_title
         }
-        console.log(this.folders)
+
+        Swal.fire(`${updateFolderResponse.message}`)
       }
       else{
         console.log(updateFolderResponse.message)
       }
-
-      this.location.go('dashboard')
       this.isEditMode = false
       this.form.reset();
+      this.router.navigate(['dashboard'])
+
+
     }
 
   }
@@ -109,16 +117,42 @@ export class DashboardComponent implements OnInit {
   }
 
   async onDelete(folderId : string) {
-    const DeleteFolderDataResponse = await this.restService.deleteFolder(folderId);
 
-    if(DeleteFolderDataResponse.success) {
-      console.log(DeleteFolderDataResponse.message)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this folder and all bookmarks will be deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then(async (result) => {
+      if (result.value) {
+        const DeleteFolderDataResponse = await this.restService.deleteFolder(folderId);
 
-      let idx = this.folders.findIndex(folder => folder._id === folderId)
+        if(DeleteFolderDataResponse.success) {
+          console.log(DeleteFolderDataResponse.message)
 
-      this.folders.splice(idx, 1)
-      console.log(this.folders)
-    }
+          let idx = this.folders.findIndex(folder => folder._id === folderId)
+
+          this.folders.splice(idx, 1)
+          console.log(this.folders)
+        }
+        Swal.fire(
+          `${DeleteFolderDataResponse.message}`,
+          '✌🏻',
+          'success'
+        )
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your folder is safe 😮‍💨',
+          'error'
+        )
+      }
+    })
+
   }
 
   async onOpenForm() {
@@ -129,3 +163,15 @@ export class DashboardComponent implements OnInit {
     this.formDisplay = 'hide-form'
   }
 }
+
+
+// const response = await this.restService.createFolder(folder_title)
+
+// if(response.success){
+//   console.log(response.folder_title)
+//   this.folder_title = response.folder_title;
+//   this.folders.push({_id : response._id , folder_title: folder_title})
+//   console.log(this.folders)
+// }
+
+// this.form.reset();

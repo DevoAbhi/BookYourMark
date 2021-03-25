@@ -11,7 +11,8 @@
 main{
   box-sizing: border-box;
   margin: 10px 50px;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Merriweather', serif;
 }
 
 body{
