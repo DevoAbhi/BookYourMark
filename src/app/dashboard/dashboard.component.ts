@@ -161,6 +161,9 @@ export class DashboardComponent implements OnInit {
 
   onCloseForm() {
     this.formDisplay = 'hide-form'
+    if(this.isEditMode) {
+      this.router.navigate(['dashboard'])
+    }
   }
 }
 

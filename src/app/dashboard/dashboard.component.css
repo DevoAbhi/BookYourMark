@@ -6,9 +6,32 @@
 
 }
 
+.jumbotron{
+  box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+-webkit-box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+-moz-box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.btn {
+  border-radius: 10px;
+  background-color: var(--pale-green) !important;
+  color: var(--white);
+  border: none !important;
+  font-weight: 550;
+  text-align: center;
+  padding: 0.5rem;
+  box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+-webkit-box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+-moz-box-shadow: 4px 5px 21px -9px rgba(0,0,0,0.54);
+}
+
 .display-form {
   display: flex;
   justify-content: center;
+  transition: 0.4s;
 }
 
 .hide-form {
@@ -81,8 +104,18 @@ label{
   width: 20rem;
   z-index: 999;
   background-color: antiquewhite;
+}
 
+.folder-func img{
+  cursor: pointer;
+  padding: 1rem;
+}
 
+.folder-func {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 
@@ -100,7 +133,6 @@ border-radius: 50px;
 background: #ffd1d1;
 box-shadow:  5px 5px 24px #d9b2b2,
              -5px -5px 24px #fff0f0;
-    cursor: pointer;
     transition: 0.4s;
 display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@
           </div>
           <button type="submit" class="btn" *ngIf="isEditMode">Update</button>
           <button type="submit" class="btn" *ngIf="!isEditMode">Create</button>
-          <button class="btn btn-primary" (click)="onCloseForm()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onCloseForm()">Close</button>
         </form>
       </div>
     </div>
@@ -29,18 +29,23 @@
     </ul> -->
 
     <div class="jumbotron">
-      <button class="btn btn-primary" (click)="onOpenForm()">Create Folder</button>
+      <button class="btn btn-primary" (click)="onOpenForm()"><img src="https://img.icons8.com/pastel-glyph/30/ffffff/plus.png"/>   Create Folder</button>
     </div>
 
     <div class="wrapper">
       <div class="folder " *ngFor= "let folder of folders" >
         <div class=" title-black">
           <p class="folder_title">{{folder.folder_title}}</p>
-          <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a>
-          <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]">Edit</a>
-          <img src="https://img.icons8.com/ios/35/000000/edit--v1.png" [routerLink]="['/edit-folder-name', folder._id]"/>
+
+          <div class="folder-func">
+            <img  src="https://img.icons8.com/android/35/000000/rocket.png" [routerLink]="['/folder', folder._id]"/>
+            <img  src="https://img.icons8.com/ios/35/000000/edit--v1.png" [routerLink]="['/edit-folder-name', folder._id]"/>
+            <img  (click)="onDelete(folder._id)" src="https://img.icons8.com/ios/35/000000/delete-forever--v1.png"/>
+          </div>
+
+          <!-- <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a> -->
+          <!-- <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]">Edit</a> -->
           <!-- <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button> -->
-          <img (click)="onDelete(folder._id)" src="https://img.icons8.com/ios/35/000000/delete-forever--v1.png"/>
         </div>
       </div>
     </div>
