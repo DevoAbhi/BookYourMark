@@ -1,0 +1,33 @@
+.login-wrapper {
+  display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -5rem !important;
+}
+
+.login-wrapper .form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content:center;
+}
+
+.btn{
+  padding: 0.5rem 2rem;
+}
+
+
+img{
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 600px){
+  .login-wrapper{
+    margin: 5rem;
+    grid-template-columns: 1fr;
+  }
+  .form{
+    order: 1;
+  }
+}
