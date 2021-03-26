@@ -14,6 +14,10 @@ li {
   background-color: var(--white) !important;
 }
 
+.navbar {
+  padding: 10px 50px;
+}
+
 /*
 .navbar-expand-lg{
   padding: 0rem 1rem !important;

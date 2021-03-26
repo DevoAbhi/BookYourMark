@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bookmarks',
@@ -80,6 +81,7 @@ export class BookmarksComponent implements OnInit {
         console.log(response.message);
 
         this.bookmarks.push(response.bookmark)
+        Swal.fire(`${response.message}`)
       }
 
       this.form.reset();
@@ -97,6 +99,7 @@ export class BookmarksComponent implements OnInit {
         console.log(response.message);
         const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === this.bookmark_id)
         this.bookmarks[index] = this.restService.createBookmarkReqObj
+        Swal.fire(`${response.message}`)
       }
       else {
         console.log(response.message)
@@ -135,12 +138,46 @@ export class BookmarksComponent implements OnInit {
 
   async onDelete(bookmark_id : string) {
 
-    const response = await this.restService.deleteBookmark(bookmark_id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this bookmark!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then(async (result) => {
+      if (result.value) {
+        const response = await this.restService.deleteBookmark(bookmark_id);
 
-    if(response.success) {
-      console.log(response.message)
-      const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === bookmark_id.toString());
-      this.bookmarks.splice(index,1);
-    }
+        if(response.success) {
+          console.log(response.message)
+          const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === bookmark_id.toString());
+          this.bookmarks.splice(index,1);
+        }
+        Swal.fire(
+          `${response.message}`,
+          '✌🏻',
+          'success'
+        )
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your bookmark is safe 😮‍💨',
+          'error'
+        )
+      }
+    })
+
+
+
+    // const response = await this.restService.deleteBookmark(bookmark_id);
+
+    // if(response.success) {
+    //   console.log(response.message)
+    //   const index = this.bookmarks.findIndex(bookmark => bookmark._id.toString() === bookmark_id.toString());
+    //   this.bookmarks.splice(index,1);
+    // }
   }
 }
