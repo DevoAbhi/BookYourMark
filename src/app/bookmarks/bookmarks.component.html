@@ -1,33 +1,65 @@
-<form [formGroup]= 'form' (submit)="onSubmitBookmark()" [ngClass]='[formDisplay]'>
-  <div class="form-group">
-    <p style="text-align: center;">Add Bookmark</p>
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" formControlName="bookmark_title" aria-describedby="bookmark_title" placeholder="Enter Bookmark's name">
+<section id="bookmark">
+  <div [ngClass]='[formDisplay]'>
+    <div class="form-card">
 
-    <label for="href">Location(URL)</label>
-    <input type="text" class="form-control" id="href" formControlName="href" aria-describedby="href" placeholder="Enter URL">
-
-    <label for="description">Description</label>
-    <input type="text" class="form-control" id="description" formControlName="description" aria-describedby="description" placeholder="Enter Description">
-
-  </div>
-
-  <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
-  <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
-  <button type="button" class="btn btn-primary" (click)= "onCloseForm()">Close</button>
-</form>
-
-<button class="btn btn-primary"  (click)= "onOpenForm()">Create bookmark</button>
-
-<ul *ngFor= "let bookmark of bookmarks">
-  <li >
-      <a [href]="bookmark.href" target="_blank">{{bookmark.bookmark_title}}</a>
-      <div>
-        <a class="btn btn-primary " [routerLink]="['./edit-bookmark', bookmark._id]" >Edit</a>
-        <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button>
+    <form [formGroup]= 'form' (submit)="onSubmitBookmark()" [ngClass]='[formDisplay]'>
+      <p>Add Bookmark</p>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" formControlName="bookmark_title" aria-describedby="bookmark_title" placeholder="Enter Bookmark's name">
+      </div>
+      <div class="form-group">
+        <label for="href">Location(URL)</label>
+        <input type="text" class="form-control" id="href" formControlName="href" aria-describedby="href" placeholder="Enter URL">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" formControlName="description" aria-describedby="description" placeholder="Enter Description">
       </div>
 
 
+      <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Create</button>
+      <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update</button>
+      <button type="button" class="btn btn-primary" (click)= "onCloseForm()">Close</button>
+    </form>
+    </div>
+    </div>
 
-  </li>
-</ul>
+    <div class="jumbotron">
+      <button class="btn btn-primary"  (click)= "onOpenForm()">Create bookmark</button>
+    </div>
+
+    <!-- <ul *ngFor= "let bookmark of bookmarks">
+      <li >
+          <a [href]="bookmark.href" target="_blank">{{bookmark.bookmark_title}}</a>
+          <div>
+            <a class="btn btn-primary " [routerLink]="['./edit-bookmark', bookmark._id]" >Edit</a>
+            <button class="btn btn-danger" (click)="onDelete(bookmark._id)">Delete</button>
+          </div>
+
+
+
+      </li>
+    </ul> -->
+
+    <div class="wrapper">
+      <div class="folder " *ngFor= "let bookmark of bookmarks" >
+        <div class=" title-black">
+          <p class="folder_title">{{bookmark.bookmark_title}}</p>
+
+          <div class="folder-func">
+            <a [href]="bookmark.href" target="_blank"><img  src="https://img.icons8.com/android/30/000000/rocket.png" /></a>
+
+            <img  src="https://img.icons8.com/ios/30/000000/edit--v1.png" [routerLink]="['./edit-bookmark', bookmark._id]"/>
+            <img  (click)="onDelete(bookmark._id)" src="https://img.icons8.com/ios/30/000000/delete-forever--v1.png"/>
+          </div>
+
+          <!-- <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a> -->
+          <!-- <a class="btn btn-primary " [routerLink]="['/edit-folder-name', folder._id]">Edit</a> -->
+          <!-- <button class="btn btn-danger" (click)="onDelete(folder._id)">Delete</button> -->
+        </div>
+      </div>
+    </div>
+
+</section>
+

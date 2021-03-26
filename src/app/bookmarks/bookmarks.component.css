@@ -1,37 +1,39 @@
-form
+#bookmark{
+    height: 100vh;
+    /* background-color: #00022e; */
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.display-form .form-card {
+  height: 500px;
+}
+
+.display-form p {
+  text-align: center;
+  justify-content: center;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 25px;
+  opacity: 0.6;
+}
+
+/* form
 {
   background-color: antiquewhite;
   padding: 2rem;
 
 }
 
-@-webkit-keyframes slide /* Safari and Chrome */
-{
-/* from {height: 0;}
-to {height: 300px;} */
-}
 
-@-prefix-keyframes slide {
-  from {height: 0;}
-  to {height: 300px;}
-}
-
-@keyframes slide
-{
-/* from {height: 0;}
-to {height: 300px;} */
-}
 
 .display-form {
   display: block;
   position: relative;
-  /* animation-name: example;
-  animation-duration: 4s;
-  animation-timing-function: ease-in; */
   -webkit-animation: slide 1s ease forwards;
-}
+} */
 
-.hide-form {
+/* .hide-form {
   display: none;
-}
+} */
 

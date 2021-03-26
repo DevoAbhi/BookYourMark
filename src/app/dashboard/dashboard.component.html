@@ -1,7 +1,7 @@
 <section id="dashboard">
 
-    <div class="form-card" [ngClass]="formDisplay" >
-      <div class="folders">
+    <div [ngClass]="formDisplay" >
+      <div class="form-card">
         <form [formGroup]= 'form' (submit)="onSubmitFolder()">
           <div class="form-group">
             <label for="folder">Create Folder</label>
@@ -38,9 +38,9 @@
           <p class="folder_title">{{folder.folder_title}}</p>
 
           <div class="folder-func">
-            <img  src="https://img.icons8.com/android/35/000000/rocket.png" [routerLink]="['/folder', folder._id]"/>
-            <img  src="https://img.icons8.com/ios/35/000000/edit--v1.png" [routerLink]="['/edit-folder-name', folder._id]"/>
-            <img  (click)="onDelete(folder._id)" src="https://img.icons8.com/ios/35/000000/delete-forever--v1.png"/>
+            <img  src="https://img.icons8.com/android/30/000000/rocket.png" [routerLink]="['/folder', folder._id]"/>
+            <img  src="https://img.icons8.com/ios/30/000000/edit--v1.png" [routerLink]="['/edit-folder-name', folder._id]"/>
+            <img  (click)="onDelete(folder._id)" src="https://img.icons8.com/ios/30/000000/delete-forever--v1.png"/>
           </div>
 
           <!-- <a class="btn btn-primary " [routerLink]="['/folder', folder._id]" >Open</a> -->
