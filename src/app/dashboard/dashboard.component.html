@@ -3,8 +3,8 @@
     <div [ngClass]="formDisplay" >
       <div class="form-card">
         <form [formGroup]= 'form' (submit)="onSubmitFolder()">
+          <label for="folder">Create Folder</label>
           <div class="form-group">
-            <label for="folder">Create Folder</label>
       <input type="text" class="form-control" id="folder" formControlName="folder_title" aria-describedby="folder" placeholder="Enter Folder name">
           </div>
           <button type="submit" class="btn" *ngIf="isEditMode">Update</button>

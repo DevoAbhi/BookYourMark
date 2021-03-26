@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -21,7 +21,8 @@ export class BookmarksComponent implements OnInit {
   constructor(
     private restService : RestService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   async ngOnInit() {
 
@@ -103,7 +104,7 @@ export class BookmarksComponent implements OnInit {
 
       this.form.reset();
       this.isEditMode = false;
-      this.location.back();
+      this.router.navigate([`folder/${this.folder_id}`])
 
 
     }
