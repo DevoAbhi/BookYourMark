@@ -2,8 +2,10 @@ import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { User } from './user.model';
 import { Subject } from 'rxjs';
-import { async } from 'rxjs/internal/scheduler/async';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiURL + '/user'
 
 @Injectable({ providedIn: "root" })
 export class AuthService implements OnInit{
@@ -38,7 +40,7 @@ export class AuthService implements OnInit{
       password: password
     }
 
-    this.httpClient.post<{success: boolean, message: string}>('http://localhost:3000/signup', user)
+    this.httpClient.post<{success: boolean, message: string}>(BACKEND_URL+'/signup', user)
     .subscribe((responseData) => {
       if(!responseData.success){
         console.log(responseData.message)
@@ -56,7 +58,7 @@ export class AuthService implements OnInit{
       password: this.loginReqObj.password
     }
 
-    this.httpClient.post<{token: string, expiresIn: number}>('http://localhost:3000/login', user)
+    this.httpClient.post<{token: string, expiresIn: number}>(BACKEND_URL+'/login', user)
     .subscribe(
       response => {
 

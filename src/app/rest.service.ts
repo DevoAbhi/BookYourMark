@@ -1,5 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from "../environments/environment";
+
+const BACKEND_URL_FOLDER = environment.apiURL + '/folder';
+const BACKEND_URL_BOOKMARK = environment.apiURL + '/bookmark';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +33,7 @@ export class RestService {
     const folder = {
       folder_title: folder_title
     }
-    await this.http.post('http://localhost:3000/create-folder', folder, {
+    await this.http.post(BACKEND_URL_FOLDER +'/create-folder', folder, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -44,7 +48,7 @@ export class RestService {
   async viewFolders(){
     this.xAuthToken = localStorage.getItem('token');
 
-    await this.http.get('http://localhost:3000/view-folders', {
+    await this.http.get(BACKEND_URL_FOLDER +'/view-folders', {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -64,7 +68,7 @@ export class RestService {
       folderId: folderId
     }
 
-    await this.http.post('http://localhost:3000/rename-folder', updatedFolder, {
+    await this.http.post(BACKEND_URL_FOLDER +'/rename-folder', updatedFolder, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -80,7 +84,7 @@ export class RestService {
   async deleteFolder(folder_id){
     this.xAuthToken = localStorage.getItem('token');
 
-    await this.http.delete(`http://localhost:3000/delete-folder?folder_id=${folder_id}`, {
+    await this.http.delete(BACKEND_URL_FOLDER +`/delete-folder?folder_id=${folder_id}`, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -100,7 +104,7 @@ export class RestService {
 
     this.xAuthToken = localStorage.getItem('token')
 
-    await this.http.post('http://localhost:3000/create-bookmark', this.createBookmarkReqObj, {
+    await this.http.post(BACKEND_URL_BOOKMARK +'/create-bookmark', this.createBookmarkReqObj, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -116,7 +120,7 @@ export class RestService {
 
     this.xAuthToken = localStorage.getItem('token');
 
-    await this.http.get(`http://localhost:3000/view-bookmarks?folder_id=${folder_id}`, {
+    await this.http.get(BACKEND_URL_BOOKMARK +`/view-bookmarks?folder_id=${folder_id}`, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -131,7 +135,7 @@ export class RestService {
   async updateBookmark() {
     this.xAuthToken = localStorage.getItem('token');
 
-    await this.http.put('http://localhost:3000/update-bookmark', this.createBookmarkReqObj, {
+    await this.http.put(BACKEND_URL_BOOKMARK +'/update-bookmark', this.createBookmarkReqObj, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
@@ -147,7 +151,7 @@ export class RestService {
 
     this.xAuthToken = localStorage.getItem('token');
 
-    await this.http.delete(`http://localhost:3000/delete-bookmark?bookmark_id=${bookmark_id}`, {
+    await this.http.delete(BACKEND_URL_BOOKMARK +`/delete-bookmark?bookmark_id=${bookmark_id}`, {
       headers: new HttpHeaders({
         'X-AUTH-TOKEN' : this.xAuthToken
       })
