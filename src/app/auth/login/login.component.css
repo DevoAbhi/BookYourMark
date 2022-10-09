@@ -1,5 +1,5 @@
 .login-wrapper {
-  display: grid;
+    display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(2, 1fr);
     margin-top: -5rem !important;
@@ -17,17 +17,60 @@
 }
 
 
-img{
+.image{
+  margin-top: 50px;
+  float: right;
   width: 100%;
   height: 100%;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 950px){
   .login-wrapper{
     margin: 5rem;
     grid-template-columns: 1fr;
   }
   .form{
     order: 1;
+  }
+  .form-control{
+    min-width: 325px;
+    justify-content: center;
+    align-items:center;
+  }
+  .image{
+    min-width: 380px;
+    min-height: 380px;
+    justify-self: center;
+    margin-left: -60px;
+  }
+}
+
+.form-control{
+  max-width: 500px;
+  margin-left: 0px;
+}
+
+@media (max-width:1000px){
+  .form-control{
+    max-width: 400px;
+  }
+  .form{
+    margin-top: 70px;
+  }
+  .image{
+    min-width: 420px;
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 800px) {
+  .form-control{
+    max-width: 300px;
+  }
+}
+
+@media (max-width:1200px){
+  .form{
+    margin-top: 50px;
   }
 }
