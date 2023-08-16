@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: "https://bookyourmark.adaptable.app"
+  apiURL: "https://bookyourmark-backend.onrender.com"
 };
